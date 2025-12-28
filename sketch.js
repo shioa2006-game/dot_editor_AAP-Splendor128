@@ -6,94 +6,173 @@ const GRID_LINE_COLOR = '#cccccc'; // グリッド線の色
 const CHECKER_LIGHT = '#ffffff'; // チェッカーボード明色
 const CHECKER_DARK = '#e0e0e0'; // チェッカーボード暗色
 
-// 定数: Resurrect 64パレット定義
+// 定数: AAP-Splendor128パレット定義
 const PALETTE = [
   { index: 0, label: '透過', color: 'transparent' },
-  // グレースケール・ニュートラル (1-10)
-  { index: 1, label: '暗い紫黒', color: '#2e222f' },
-  { index: 2, label: '暗い紫灰', color: '#3e3546' },
-  { index: 3, label: '紫灰', color: '#625565' },
-  { index: 4, label: 'くすんだローズ', color: '#966c6c' },
-  { index: 5, label: 'ベージュ', color: '#ab947a' },
-  { index: 6, label: '暗いモーブ', color: '#694f62' },
-  { index: 7, label: '灰紫', color: '#7f708a' },
-  { index: 8, label: '青灰', color: '#9babb2' },
-  { index: 9, label: '淡い緑灰', color: '#c7dcd0' },
-  { index: 10, label: '白', color: '#ffffff' },
-  // 赤・オレンジ (11-19)
-  { index: 11, label: '暗い赤', color: '#6e2727' },
-  { index: 12, label: '赤茶', color: '#b33831' },
-  { index: 13, label: '明るい赤', color: '#ea4f36' },
-  { index: 14, label: 'オレンジ赤', color: '#f57d4a' },
-  { index: 15, label: 'クリムゾン', color: '#ae2334' },
-  { index: 16, label: '鮮やかな赤', color: '#e83b3b' },
-  { index: 17, label: 'オレンジ', color: '#fb6b1d' },
-  { index: 18, label: '黄オレンジ', color: '#f79617' },
-  { index: 19, label: '黄', color: '#f9c22b' },
-  // 茶・暖色 (20-24)
-  { index: 20, label: 'ワイン', color: '#7a3045' },
-  { index: 21, label: 'レンガ', color: '#9e4539' },
-  { index: 22, label: 'テラコッタ', color: '#cd683d' },
-  { index: 23, label: 'サーモン', color: '#e6904e' },
-  { index: 24, label: '山吹', color: '#fbb954' },
-  // 緑・黄緑 (25-34)
-  { index: 25, label: 'オリーブ茶', color: '#4c3e24' },
-  { index: 26, label: 'オリーブ', color: '#676633' },
-  { index: 27, label: '黄緑', color: '#a2a947' },
-  { index: 28, label: 'ライム', color: '#d5e04b' },
-  { index: 29, label: 'レモン', color: '#fbff86' },
-  { index: 30, label: '深緑', color: '#165a4c' },
-  { index: 31, label: '緑', color: '#239063' },
-  { index: 32, label: 'エメラルド', color: '#1ebc73' },
-  { index: 33, label: '明るい緑', color: '#91db69' },
-  { index: 34, label: '黄緑明', color: '#cddf6c' },
-  // グレー・暗色 (35-39)
-  { index: 35, label: '暗いグレー', color: '#313638' },
-  { index: 36, label: '暗い青緑', color: '#374e4a' },
-  { index: 37, label: '緑灰', color: '#547e64' },
-  { index: 38, label: 'セージ', color: '#92a984' },
-  { index: 39, label: '苔色', color: '#b2ba90' },
-  // シアン・ティール (40-44)
-  { index: 40, label: '暗いシアン', color: '#0b5e65' },
-  { index: 41, label: 'ティール', color: '#0b8a8f' },
-  { index: 42, label: 'ターコイズ', color: '#0eaf9b' },
-  { index: 43, label: '明るいシアン', color: '#30e1b9' },
-  { index: 44, label: '水色', color: '#8ff8e2' },
-  // 青 (45-49)
-  { index: 45, label: '暗い紺', color: '#323353' },
-  { index: 46, label: '紺', color: '#484a77' },
-  { index: 47, label: '青', color: '#4d65b4' },
-  { index: 48, label: '明るい青', color: '#4d9be6' },
-  { index: 49, label: '水色明', color: '#8fd3ff' },
-  // 紫 (50-54)
-  { index: 50, label: '暗いプラム', color: '#45293f' },
-  { index: 51, label: 'プラム', color: '#6b3e75' },
-  { index: 52, label: '紫', color: '#905ea9' },
-  { index: 53, label: 'ラベンダー', color: '#a884f3' },
-  { index: 54, label: '淡いピンク', color: '#eaaded' },
-  // ピンク・マゼンタ (55-64)
-  { index: 55, label: '暗いマゼンタ', color: '#753c54' },
-  { index: 56, label: 'マゼンタ', color: '#a24b6f' },
-  { index: 57, label: 'ローズ', color: '#cf657f' },
-  { index: 58, label: 'ピンク', color: '#ed8099' },
-  { index: 59, label: '深いマゼンタ', color: '#831c5d' },
-  { index: 60, label: '赤マゼンタ', color: '#c32454' },
-  { index: 61, label: '明るいローズ', color: '#f04f78' },
-  { index: 62, label: 'サーモンピンク', color: '#f68181' },
-  { index: 63, label: '肌色明', color: '#fca790' },
-  { index: 64, label: 'クリーム', color: '#fdcbb0' }
+  // Row 1: 暗色・暖色系 (1-8)
+  { index: 1, label: '漆黒', color: '#050403' },
+  { index: 2, label: '炭黒', color: '#0e0c0c' },
+  { index: 3, label: '暗い赤茶', color: '#2d1b1e' },
+  { index: 4, label: 'マルーン', color: '#612721' },
+  { index: 5, label: '朱色', color: '#b9451d' },
+  { index: 6, label: 'オレンジ', color: '#f1641f' },
+  { index: 7, label: 'サーモン', color: '#fca570' },
+  { index: 8, label: 'クリーム', color: '#ffe0b7' },
+  // Row 2: 白・黄色系 (9-16)
+  { index: 9, label: '白', color: '#ffffff' },
+  { index: 10, label: 'レモンクリーム', color: '#fff089' },
+  { index: 11, label: 'ゴールド', color: '#f8c53a' },
+  { index: 12, label: 'オレンジ黄', color: '#e88a36' },
+  { index: 13, label: 'キャラメル', color: '#b05b2c' },
+  { index: 14, label: 'チョコレート', color: '#673931' },
+  { index: 15, label: 'こげ茶', color: '#271f1b' },
+  { index: 16, label: 'オリーブ茶', color: '#4c3d2e' },
+  // Row 3: 茶・黄緑系 (17-24)
+  { index: 17, label: '土色', color: '#855f39' },
+  { index: 18, label: '黄土色', color: '#d39741' },
+  { index: 19, label: 'レモン', color: '#f8f644' },
+  { index: 20, label: 'ライムイエロー', color: '#d5dc1d' },
+  { index: 21, label: 'オリーブ', color: '#adb834' },
+  { index: 22, label: '苔色', color: '#7f8e44' },
+  { index: 23, label: '暗い草色', color: '#586335' },
+  { index: 24, label: '深緑暗', color: '#333c24' },
+  // Row 4: 緑系 (25-32)
+  { index: 25, label: '暗い緑', color: '#182c19' },
+  { index: 26, label: '深緑', color: '#293f21' },
+  { index: 27, label: 'フォレスト', color: '#477238' },
+  { index: 28, label: 'グラス', color: '#61a53f' },
+  { index: 29, label: 'ライム', color: '#8fd032' },
+  { index: 30, label: '黄緑', color: '#c4f129' },
+  { index: 31, label: 'ミントクリーム', color: '#d0ffea' },
+  { index: 32, label: 'ミント', color: '#97edca' },
+  // Row 5: シアン・緑系 (33-40)
+  { index: 33, label: 'エメラルド', color: '#59cf93' },
+  { index: 34, label: '緑', color: '#42a459' },
+  { index: 35, label: '深緑中', color: '#3d6f43' },
+  { index: 36, label: '暗い森', color: '#27412d' },
+  { index: 37, label: '暗い紺', color: '#141225' },
+  { index: 38, label: '深紺', color: '#1b2447' },
+  { index: 39, label: 'コバルト', color: '#2b4e95' },
+  { index: 40, label: 'スカイブルー', color: '#2789cd' },
+  // Row 6: 青・シアン系 (41-48)
+  { index: 41, label: 'シアン', color: '#42bfe8' },
+  { index: 42, label: 'アクア', color: '#73efe8' },
+  { index: 43, label: '白青', color: '#f1f2ff' },
+  { index: 44, label: '淡い青', color: '#c9d4fd' },
+  { index: 45, label: 'ラベンダーブルー', color: '#8aa1f6' },
+  { index: 46, label: 'ロイヤルブルー', color: '#4572e3' },
+  { index: 47, label: '暗い紫', color: '#494182' },
+  { index: 48, label: '紫', color: '#7864c6' },
+  // Row 7: 紫・ピンク系 (49-56)
+  { index: 49, label: 'ラベンダー', color: '#9c8bdb' },
+  { index: 50, label: 'ライラック', color: '#ceaaed' },
+  { index: 51, label: '淡いピンク', color: '#fad6ff' },
+  { index: 52, label: 'ピーチ', color: '#eeb59c' },
+  { index: 53, label: 'ローズ', color: '#d480bb' },
+  { index: 54, label: 'オーキッド', color: '#9052bc' },
+  { index: 55, label: '暗い灰', color: '#171516' },
+  { index: 56, label: 'チャコール', color: '#373334' },
+  // Row 8: グレー・ベージュ系 (57-64)
+  { index: 57, label: '灰茶', color: '#695959' },
+  { index: 58, label: 'ベージュ', color: '#b28b78' },
+  { index: 59, label: '淡い黄土', color: '#e2b27e' },
+  { index: 60, label: 'クリームイエロー', color: '#f6d896' },
+  { index: 61, label: 'レモンホワイト', color: '#fcfbbe' },
+  { index: 62, label: 'オフホワイト', color: '#ecebe7' },
+  { index: 63, label: '銀灰', color: '#cbcac1' },
+  { index: 64, label: '灰色', color: '#a69e9a' },
+  // Row 9: グレー系 (65-72)
+  { index: 65, label: '中灰', color: '#807b7a' },
+  { index: 66, label: '暗い灰色', color: '#595757' },
+  { index: 67, label: '濃い灰', color: '#323232' },
+  { index: 68, label: '赤茶暗', color: '#4f342f' },
+  { index: 69, label: 'シエナ', color: '#8c5b3e' },
+  { index: 70, label: 'タン', color: '#c68556' },
+  { index: 71, label: 'サンド', color: '#d6a851' },
+  { index: 72, label: 'オーカー', color: '#b47538' },
+  // Row 10: 茶・オリーブ系 (73-80)
+  { index: 73, label: 'サドルブラウン', color: '#724b2c' },
+  { index: 74, label: 'ダークブラウン', color: '#452a1b' },
+  { index: 75, label: 'カーキ', color: '#61683a' },
+  { index: 76, label: 'オリーブ黄', color: '#939446' },
+  { index: 77, label: 'マスタード', color: '#c6b858' },
+  { index: 78, label: 'ペールイエロー', color: '#efdd91' },
+  { index: 79, label: 'ミントグリーン', color: '#b5e7cb' },
+  { index: 80, label: 'セージ', color: '#86c69a' },
+  // Row 11: 緑・ティール系 (81-88)
+  { index: 81, label: 'シーグリーン', color: '#5d9b79' },
+  { index: 82, label: 'ティールグリーン', color: '#486859' },
+  { index: 83, label: 'ダークティール', color: '#2c3b39' },
+  { index: 84, label: 'ダークスレート', color: '#171819' },
+  { index: 85, label: 'スレートグレー', color: '#2c3438' },
+  { index: 86, label: 'グレーグリーン', color: '#465656' },
+  { index: 87, label: 'ティール', color: '#648b8c' },
+  { index: 88, label: 'アクアマリン', color: '#8ac4c3' },
+  // Row 12: シアン・青灰系 (89-96)
+  { index: 89, label: 'ペールアクア', color: '#aee9df' },
+  { index: 90, label: 'アイスブルー', color: '#dce9ee' },
+  { index: 91, label: 'ペールブルー', color: '#b8ccd8' },
+  { index: 92, label: 'スチールブルー', color: '#88a3bc' },
+  { index: 93, label: 'スレートブルー', color: '#5e718e' },
+  { index: 94, label: 'ダークブルーグレー', color: '#485262' },
+  { index: 95, label: '暗いインディゴ', color: '#282c3c' },
+  { index: 96, label: 'インディゴグレー', color: '#464762' },
+  // Row 13: 紫・グレー系 (97-104)
+  { index: 97, label: 'ダスティパープル', color: '#696682' },
+  { index: 98, label: 'モーブ', color: '#9a97b9' },
+  { index: 99, label: 'ラベンダーグレー', color: '#c5c7dd' },
+  { index: 100, label: 'ペールラベンダー', color: '#e6e7f0' },
+  { index: 101, label: 'スノーホワイト', color: '#eeecea' },
+  { index: 102, label: 'ダスティローズ', color: '#e3cddf' },
+  { index: 103, label: 'ウィステリア', color: '#bfa5c9' },
+  { index: 104, label: 'パープルグレー', color: '#877388' },
+  // Row 14: 紫・ピンク系 (105-112)
+  { index: 105, label: 'ダークプラム', color: '#564f5b' },
+  { index: 106, label: 'エボニー', color: '#322f35' },
+  { index: 107, label: 'ダークワイン', color: '#36282b' },
+  { index: 108, label: 'マゼンタ暗', color: '#654856' },
+  { index: 109, label: 'マゼンタ', color: '#966888' },
+  { index: 110, label: 'ダスティピンク', color: '#c09097' },
+  { index: 111, label: 'ローズベージュ', color: '#d4b8b8' },
+  { index: 112, label: 'ペールローズ', color: '#eae0dd' },
+  // Row 15: ピンク・ベージュ系 (113-120)
+  { index: 113, label: 'アイボリー', color: '#f1ebdb' },
+  { index: 114, label: 'トープ', color: '#ddd6bf' },
+  { index: 115, label: 'ロージーブラウン', color: '#bda499' },
+  { index: 116, label: 'モカ', color: '#886e6a' },
+  { index: 117, label: 'ダークモカ', color: '#594d4d' },
+  { index: 118, label: 'ダークマルーン', color: '#332726' },
+  { index: 119, label: 'ワイン', color: '#53282a' },
+  { index: 120, label: 'サンドベージュ', color: '#b29476' },
+  // Row 16: クリーム・ピンク系 (121-128)
+  { index: 121, label: 'ハニー', color: '#e1bf89' },
+  { index: 122, label: 'バター', color: '#f8e398' },
+  { index: 123, label: 'シェル', color: '#ffe9e3' },
+  { index: 124, label: 'ベビーピンク', color: '#fdc9c9' },
+  { index: 125, label: 'コーラル', color: '#f6a2a8' },
+  { index: 126, label: 'ローズピンク', color: '#e27285' },
+  { index: 127, label: 'チェリー', color: '#b25266' },
+  { index: 128, label: 'プラム', color: '#643c4b' }
 ];
 
-// 定数: パレットグループ（2行表示用に8色ずつ）
+// 定数: パレットグループ（8色ずつ、128色+透過で17行）
 const PALETTE_GROUPS = [
-  { name: '', colorIndexes: [0, 1, 2, 3, 4, 5, 6, 7] },
-  { name: '', colorIndexes: [8, 9, 10, 11, 12, 13, 14, 15] },
-  { name: '', colorIndexes: [16, 17, 18, 19, 20, 21, 22, 23] },
-  { name: '', colorIndexes: [24, 25, 26, 27, 28, 29, 30, 31] },
-  { name: '', colorIndexes: [32, 33, 34, 35, 36, 37, 38, 39] },
-  { name: '', colorIndexes: [40, 41, 42, 43, 44, 45, 46, 47] },
-  { name: '', colorIndexes: [48, 49, 50, 51, 52, 53, 54, 55] },
-  { name: '', colorIndexes: [56, 57, 58, 59, 60, 61, 62, 63, 64] }
+  { name: '', colorIndexes: [0, 1, 2, 3, 4, 5, 6, 7, 8] },
+  { name: '', colorIndexes: [9, 10, 11, 12, 13, 14, 15, 16] },
+  { name: '', colorIndexes: [17, 18, 19, 20, 21, 22, 23, 24] },
+  { name: '', colorIndexes: [25, 26, 27, 28, 29, 30, 31, 32] },
+  { name: '', colorIndexes: [33, 34, 35, 36, 37, 38, 39, 40] },
+  { name: '', colorIndexes: [41, 42, 43, 44, 45, 46, 47, 48] },
+  { name: '', colorIndexes: [49, 50, 51, 52, 53, 54, 55, 56] },
+  { name: '', colorIndexes: [57, 58, 59, 60, 61, 62, 63, 64] },
+  { name: '', colorIndexes: [65, 66, 67, 68, 69, 70, 71, 72] },
+  { name: '', colorIndexes: [73, 74, 75, 76, 77, 78, 79, 80] },
+  { name: '', colorIndexes: [81, 82, 83, 84, 85, 86, 87, 88] },
+  { name: '', colorIndexes: [89, 90, 91, 92, 93, 94, 95, 96] },
+  { name: '', colorIndexes: [97, 98, 99, 100, 101, 102, 103, 104] },
+  { name: '', colorIndexes: [105, 106, 107, 108, 109, 110, 111, 112] },
+  { name: '', colorIndexes: [113, 114, 115, 116, 117, 118, 119, 120] },
+  { name: '', colorIndexes: [121, 122, 123, 124, 125, 126, 127, 128] }
 ];
 
 // 状態管理変数
@@ -540,7 +619,7 @@ function validateImportedData(raw) {
     for (let x = 0; x < CANVAS_PIXEL_SIZE; x += 1) {
       const value = Number(row[x]);
       if (!Number.isInteger(value) || value < 0 || value >= PALETTE.length) {
-        return { error: `${y + 1}行${x + 1}列の値が0-64の整数ではありません。` };
+        return { error: `${y + 1}行${x + 1}列の値が0-128の整数ではありません。` };
       }
       normalizedRow.push(value);
     }
@@ -601,7 +680,7 @@ function showImportFeedback(message, isError = false) {
 function formatPixelDataPretty(data) {
   const formattedRows = data.map((row) => {
     const values = row
-      .map((value) => value.toString().padStart(2, ' '))
+      .map((value) => value.toString().padStart(3, ' '))
       .join(', ');
     return `  [ ${values} ]`;
   });
